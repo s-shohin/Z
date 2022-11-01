@@ -113,7 +113,7 @@ def Z_func(data):
 
         #型式
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carTypeField_input').send_keys(data['型式2'])
-        sleep(2)
+        sleep(3)
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:autoCompleteButton').click()
         sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:dummyCarTypeListField0')).select_by_index(1)
@@ -124,13 +124,13 @@ def Z_func(data):
 
         #生年月日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBEraYearField')).select_by_visible_text(data['生年2']) 
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBMonthField')).select_by_visible_text(str(data['生まれ月2']))
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBDayField')).select_by_visible_text(str(data['生まれ日2'])) 
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverResidencialAreaField')).select_by_visible_text(str(data['地域2'])) 
-        sleep(1)
+        sleep(2)
 
         #免許の色
         if data['免許2'] == 'ゴールド':
