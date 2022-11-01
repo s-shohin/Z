@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[10]:
+# In[13]:
 
 
 from selenium import webdriver
@@ -16,7 +16,7 @@ import re
 import traceback
 
 
-# In[11]:
+# In[14]:
 
 
 def Z_func(data):
@@ -60,15 +60,16 @@ def Z_func(data):
             #一年契約
             sleep(3)
             browser.find_element(By.CSS_SELECTOR, '#riskFactorForm\:selectYearType > tbody > tr > td.firstChild > label').click()   
-            sleep(1)
+        
+        sleep(1)
 
         #始期日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateEraYearField')).select_by_visible_text(data['西暦2']) 
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateMonthField')).select_by_visible_text(str(data['月2']))
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateDayField')).select_by_visible_text(str(data['日2'])) 
-        sleep(1)
+        sleep(2)
 
         if 'S' in data['NF2']:
             pass
@@ -89,7 +90,7 @@ def Z_func(data):
 
             #車両保険あり
             browser.find_element(By.CSS_SELECTOR, '#riskFactorForm\:ownDamageCoverageField > tbody > tr > td.firstChild > label').click()
-            sleep(1)                                         
+            sleep(2)                                         
             
             #運限
             if data['運限修正'] == '本配':
@@ -112,7 +113,7 @@ def Z_func(data):
 
         #型式
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carTypeField_input').send_keys(data['型式2'])
-        sleep(1)
+        sleep(2)
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:autoCompleteButton').click()
         sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:dummyCarTypeListField0')).select_by_index(1)
@@ -364,7 +365,7 @@ def Z_func(data):
     return data  
 
 
-# In[12]:
+# In[15]:
 
 
 if __name__ == "__main__":
