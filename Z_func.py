@@ -20,6 +20,9 @@ import traceback
 
 
 def Z_func(data):
+    USER_ID='nihonsaburo1234@gmail.com'
+    USER_PW='s@fic1234'
+
     #dict型のdataを受け取り、打鍵結果を入力したdict型のdataを返す
     try:
         options = webdriver.ChromeOptions()
@@ -366,8 +369,6 @@ def Z_func(data):
 if __name__ == "__main__":
     FAIL_NAME='Z条件_データ1_定点'
     SHEET_NAME='Z打鍵'
-    USER_ID='nihonsaburo1234@gmail.com'
-    USER_PW='s@fic1234'
 
     #データ読み込み
     df=pd.read_excel(FAIL_NAME+'.xlsm',sheet_name=SHEET_NAME)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import Z_func as Z
@@ -17,12 +17,14 @@ import random
 import subprocess
 
 
-# In[ ]:
+# In[2]:
 
 
 FILE_NAME=input('ファイル名を入力（拡張子.xlsmは除く）')
 SHEET_NAME='Z打鍵'
-BASE_BAT_SIZE=100 #バッチサイズ。一度の打鍵件数
+BASE_BAT_SIZE=2 #バッチサイズ。一度の打鍵件数
+USER_ID='nihonsaburo1234@gmail.com'
+USER_PW='s@fic1234'
 
 #githubから最新版をダウンロードする。強制的に上書き
 try:#ダウンロードする際、競合してUnlink *** try?y/n みたいなメッセージで止まるので、いったん削除して回避。
