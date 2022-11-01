@@ -109,11 +109,11 @@ def Z_func(data):
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carRegistrationDateEraYearField')).select_by_visible_text(data['初度年2']) 
         sleep(1)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carRegistrationDateMonthField')).select_by_visible_text(str(data['初度月2']))
-        sleep(1)
+        sleep(2)
 
         #型式
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carTypeField_input').send_keys(data['型式2'])
-        sleep(3)
+        sleep(2)
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:autoCompleteButton').click()
         sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:dummyCarTypeListField0')).select_by_index(1)
