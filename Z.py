@@ -89,6 +89,11 @@ while len(calc_row) > 0:
     
         ws=wb[SHEET_NAME]
         for i in calc_row:
+            ws.cell(row=i, column=73).value = df.loc[i-2,'車有P'] 
+            ws.cell(row=i, column=74).value = df.loc[i-2,'車無P']
+            ws.cell(row=i, column=75).value = df.loc[i-2,'イ割車有'] 
+            ws.cell(row=i, column=76).value = df.loc[i-2,'イ割車無']
+            ws.cell(row=i, column=77).value = df.loc[i-2,'早割'] 
             ws.cell(row=i, column=78).value = df.loc[i-2,'車両AMTエラー']
             ws.cell(row=i, column=79).value = df.loc[i-2,'新車保険金額エラー']
 
