@@ -257,11 +257,20 @@ def Z_func(data):
         except:
             data['車両AMTエラー']='該当なし'
 
-        sleep(1)
+        sleep(2)
 
         #7等級未満だと選択肢が現れないため
         if len(browser.find_elements(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1'))>0:
             Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1')).select_by_visible_text(data['車両免責2']) 
+
+        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text == (data['車両AMT2']) and browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text == (data['車両免責2']):
+            pass
+        else:
+            0/0 #無理やりエラーにする。後でもっといいやり方を検討。
+
+        Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1')).select_by_visible_text(data['車両免責2'])
+
+
 
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
@@ -275,7 +284,7 @@ def Z_func(data):
             browser.find_element(By.CSS_SELECTOR, '#availableComplementaryCarPanel_plan1 > ul > li.radio02 > label').click()
 
         sleep(1)
-
+        
         #地噴津
         if data['地噴津']=='あり':
             browser.find_element(By.CSS_SELECTOR, '#earthQuakeVehiclesClausePanel_plan1 > ul > li.radio01 > label').click()
