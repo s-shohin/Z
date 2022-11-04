@@ -131,9 +131,10 @@ def Z_func(data):
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBDayField')).select_by_visible_text(str(data['生まれ日2'])) 
         sleep(3)
 
-        browser.execute_script("window.scrollTo(0, 100000)")#適当にスクロール
 
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverResidencialAreaField')).select_by_visible_text(str(data['地域2'])) 
+
+        browser.execute_script("window.scrollTo(0, 100000)")#適当にスクロール
         sleep(3)
 
         #免許の色
@@ -162,6 +163,8 @@ def Z_func(data):
         elif data['走行距離2'] == 5:
             browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:anualMilleageField > tbody > tr > td:nth-child(5) > label').click()
         sleep(1)
+
+        browser.execute_script("window.scrollTo(0, 100000)")#適当にスクロール
 
         if 'S' in data['NF2']:
             #運限
