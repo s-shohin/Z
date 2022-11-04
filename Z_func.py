@@ -119,6 +119,8 @@ def Z_func(data):
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:dummyCarTypeListField0')).select_by_index(1)
         sleep(1)
 
+        browser.execute_script("window.scrollTo(0, 10000)")#下までスクロールしないとエラーが起きがち？
+
         #記名被保険者は契約者の配偶者男性
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverRelationField > tbody > tr > td.nthChild3.nthChild3n > label').click()
 
