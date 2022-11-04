@@ -65,7 +65,7 @@ while len(calc_row) > 0:
 
         #打鍵中と入力したファイルをアップロード
         subprocess.run(['git', 'add', FILE_NAME+'.xlsm'])
-        subprocess.run(['git', 'commit', '-m','"hoge"'])
+        subprocess.run(['git', 'commit', '-m','hoge'])
         subprocess.run(['git','push','-f','origin','main'])#競合しても上書き　-fオプションを付ける
 
         #####打鍵、行単位のループ#####################################  
