@@ -268,8 +268,6 @@ def Z_func(data):
         else:
             data['車両AMTエラー']='不明なエラー'
 
-        Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1')).select_by_visible_text(data['車両免責2'])
-
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
 
