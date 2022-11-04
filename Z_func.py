@@ -63,11 +63,11 @@ def Z_func(data):
 
         #始期日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateEraYearField')).select_by_visible_text(data['西暦2']) 
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateMonthField')).select_by_visible_text(str(data['月2']))
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateDayField')).select_by_visible_text(str(data['日2'])) 
-        sleep(1)
+        sleep(2)
 
         if 'S' in data['NF2']:
             pass
