@@ -124,15 +124,17 @@ def Z_func(data):
         #記名被保険者は契約者の配偶者男性
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverRelationField > tbody > tr > td.nthChild3.nthChild3n > label').click()
 
+        sleep(3)
+
         #生年月日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBEraYearField')).select_by_visible_text(data['生年2']) 
-        sleep(2)
+        sleep(3)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBMonthField')).select_by_visible_text(str(data['生まれ月2']))
-        sleep(2)
+        sleep(3)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBDayField')).select_by_visible_text(str(data['生まれ日2'])) 
-        sleep(2)
+        sleep(3)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverResidencialAreaField')).select_by_visible_text(str(data['地域2'])) 
-        sleep(2)
+        sleep(3)
 
         #免許の色
         if data['免許2'] == 'ゴールド':
