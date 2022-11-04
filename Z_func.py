@@ -307,7 +307,7 @@ def Z_func(data):
         except:
             pass
 
-        sleep(2)
+        sleep(4)
         result0_discount = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:quotePremium1_top').text
         result0_discount_amt = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:discountArea1_top').text
 
@@ -356,7 +356,7 @@ def Z_func(data):
         except:
             pass
 
-        sleep(2)
+        sleep(4)
 
 
         #車無保険料の取得
