@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[4]:
 
 
 from selenium import webdriver
@@ -16,7 +16,7 @@ import re
 import traceback
 
 
-# In[2]:
+# In[5]:
 
 
 def Z_func(data):
@@ -381,16 +381,16 @@ def Z_func(data):
     return data  
 
 
-# In[3]:
+# In[6]:
 
 
 if __name__ == "__main__":
-    FAIL_NAME='Z条件_データ1_定点'
+    FAIL_NAME='Z条件_データ1_2301'
     SHEET_NAME='Z打鍵'
 
     #データ読み込み
     df=pd.read_excel(FAIL_NAME+'.xlsm',sheet_name=SHEET_NAME)
-    data=df.loc[14-2,:].to_dict()
+    data=df.loc[2-2,:].to_dict()
     Z_func(data) 
     print(data)
 
