@@ -266,11 +266,9 @@ def Z_func(data):
         if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text == (data['車両AMT2']) and browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text == (data['車両免責2']):
             pass
         else:
-            0/0 #無理やりエラーにする。後でもっといいやり方を検討。
+            data['車両AMTエラー']='不明なエラー'
 
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1')).select_by_visible_text(data['車両免責2'])
-
-
 
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
