@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[13]:
+# In[1]:
 
 
 from selenium import webdriver
@@ -16,7 +16,7 @@ import re
 import traceback
 
 
-# In[14]:
+# In[2]:
 
 
 def Z_func(data):
@@ -270,6 +270,8 @@ def Z_func(data):
         else:
             browser.find_element(By.CSS_SELECTOR, '#availableComplementaryCarPanel_plan1 > ul > li.radio02 > label').click()
 
+        sleep(1)
+
         #地噴津
         if data['地噴津']=='あり':
             browser.find_element(By.CSS_SELECTOR, '#earthQuakeVehiclesClausePanel_plan1 > ul > li.radio01 > label').click()
@@ -379,7 +381,7 @@ def Z_func(data):
     return data  
 
 
-# In[15]:
+# In[3]:
 
 
 if __name__ == "__main__":
