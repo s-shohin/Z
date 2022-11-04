@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[4]:
+# In[7]:
 
 
 from selenium import webdriver
@@ -16,7 +16,7 @@ import re
 import traceback
 
 
-# In[5]:
+# In[8]:
 
 
 def Z_func(data):
@@ -249,15 +249,19 @@ def Z_func(data):
 
         #車両保険
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageOption_plan1')).select_by_visible_text(data['車両保険種類2']) 
+
+        sleep(2)
+
         try:
             Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
         except:
             data['車両AMTエラー']='該当なし'
+
         sleep(1)
-        try:#7等級未満だと選択肢が現れないため
+
+        #7等級未満だと選択肢が現れないため
+        if len(browser.find_elements(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1'))>0:
             Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1')).select_by_visible_text(data['車両免責2']) 
-        except:
-            pass
 
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
@@ -381,7 +385,7 @@ def Z_func(data):
     return data  
 
 
-# In[6]:
+# In[9]:
 
 
 if __name__ == "__main__":
