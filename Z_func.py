@@ -26,7 +26,7 @@ def Z_func(data):
     #dict型のdataを受け取り、打鍵結果を入力したdict型のdataを返す
     try:
         options = webdriver.ChromeOptions()
-        #options.add_argument('--headless') #ブラウザ表示なし#Zはheadlessだとエラーになる。
+        #options.add_argument('--headless') #ブラウザ表示なし
         options.add_argument('--incognito') #シークレットモード 
         browser = webdriver.Chrome(options=options)
 
@@ -60,16 +60,15 @@ def Z_func(data):
             #一年契約
             sleep(3)
             browser.find_element(By.CSS_SELECTOR, '#riskFactorForm\:selectYearType > tbody > tr > td.firstChild > label').click()   
-        
-        sleep(1)
+            sleep(1)
 
         #始期日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateEraYearField')).select_by_visible_text(data['西暦2']) 
-        sleep(2)
+        sleep(1)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateMonthField')).select_by_visible_text(str(data['月2']))
-        sleep(2)
+        sleep(1)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateDayField')).select_by_visible_text(str(data['日2'])) 
-        sleep(2)
+        sleep(1)
 
         if 'S' in data['NF2']:
             pass
@@ -90,7 +89,7 @@ def Z_func(data):
 
             #車両保険あり
             browser.find_element(By.CSS_SELECTOR, '#riskFactorForm\:ownDamageCoverageField > tbody > tr > td.firstChild > label').click()
-            sleep(2)                                         
+            sleep(1)                                         
             
             #運限
             if data['運限修正'] == '本配':
@@ -109,17 +108,15 @@ def Z_func(data):
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carRegistrationDateEraYearField')).select_by_visible_text(data['初度年2']) 
         sleep(1)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carRegistrationDateMonthField')).select_by_visible_text(str(data['初度月2']))
-        sleep(2)
+        sleep(1)
 
         #型式
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carTypeField_input').send_keys(data['型式2'])
-        sleep(2)
+        sleep(1)
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:autoCompleteButton').click()
         sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:dummyCarTypeListField0')).select_by_index(1)
         sleep(1)
-
-        browser.execute_script("window.scrollTo(0, 10000)")#下までスクロールしないとエラーが起きがち？
 
         #記名被保険者は契約者の配偶者男性
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverRelationField > tbody > tr > td.nthChild3.nthChild3n > label').click()
@@ -216,11 +213,14 @@ def Z_func(data):
         browser.execute_script("window.scrollTo(0, 10000)")#下までスクロールしないとエラーが起きがち？
         sleep(2)
 
+
         #次へ なぜかXPATHで指定しないと上手く押せない
         browser.find_element(By.XPATH, '/html/body/main/div[2]/form/ul/li[1]').click()
 
 
-        sleep(1)
+        browser.execute_script("window.scrollTo(0, 60000)")#適当にスクロール
+
+        sleep(2)
         #次へすすむ
         browser.find_element(By.CSS_SELECTOR, 'body > div.str_main > div.str_main_inner > form > ul > li._button').click()
         ##結果画面
@@ -254,6 +254,8 @@ def Z_func(data):
 
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
+
+        browser.execute_script("window.scrollTo(0, 60000)")#適当にスクロール
 
         #代車
         if data['代車費用2']=='あり':
@@ -292,7 +294,6 @@ def Z_func(data):
             pass
 
         sleep(2)
-        #車有保険料の取得
         result0_discount = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:quotePremium1_top').text
         result0_discount_amt = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:discountArea1_top').text
 
@@ -341,7 +342,8 @@ def Z_func(data):
         except:
             pass
 
-        sleep(3)
+        sleep(2)
+
 
         #車無保険料の取得
         result1_discount = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:quotePremium2_top').text
@@ -351,7 +353,8 @@ def Z_func(data):
         #空白なら、文字列の0をいれる。後段のre.subでエラーを起こさないように。
         if early_discount_amt == "":
             early_discount_amt = str(0)
-       
+
+
         #カンマを除く
         data['車有P']=int(re.sub(r"\D", "", result0_discount))
         data['車無P']=int(re.sub(r"\D", "", result1_discount))
