@@ -54,7 +54,7 @@ while len(calc_row) > 0:
         calc_row=list()
         #数値のはいっていない行のうち、バッチサイズの行だけExcel上の行番号を取得（dfのindex+2）する。
         BAT_SIZE=BASE_BAT_SIZE + random.randint(0, BASE_BAT_SIZE) #並列処理時にデータファイルアクセスのタイミングをずらすために乱数を加算
-        calc_row=list(df[(df['車有P'] == 'EE') | (df['車有P'].isna())].index[0:BAT_SIZE]+2)
+        calc_row=list(df[(df['車有P'] == 'E') | (df['車有P'].isna())].index[0:BAT_SIZE]+2)
         print(calc_row)
 
         #打鍵を始める行に打鍵中と入力
