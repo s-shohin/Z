@@ -33,7 +33,7 @@ def Z_func(data):
         #見積もりページを開く
         url= "https://www.zurich.co.jp/auto/common/ncdAssessmentPage.html"
         browser.get(url)
-        sleep(1)
+        sleep(3)
 
         if 'S' in data['NF2']:
             new = 'New'
