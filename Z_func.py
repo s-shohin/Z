@@ -250,23 +250,19 @@ def Z_func(data):
         #車両保険
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageOption_plan1')).select_by_visible_text(data['車両保険種類2']) 
 
-        sleep(2)
-
-        try:
-            Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
-        except:
-            data['車両AMTエラー']='該当なし'
-
-        sleep(2)
-
+        Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
+        sleep(3)
         #7等級未満だと選択肢が現れないため
         if len(browser.find_elements(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1'))>0:
             Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1')).select_by_visible_text(data['車両免責2']) 
+        sleep(1)
+        #何故か車両AMTがデフォルト値に戻ったりするので、念のため、もう一度選択
+        Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
 
         if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text == (data['車両AMT2']) and browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text == (data['車両免責2']):
             pass
         else:
-            data['車両AMTエラー']='不明なエラー'
+            data['車両AMTエラー']='車両保険エラー'
 
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
