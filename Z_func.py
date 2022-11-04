@@ -217,10 +217,9 @@ def Z_func(data):
         #次へ なぜかXPATHで指定しないと上手く押せない
         browser.find_element(By.XPATH, '/html/body/main/div[2]/form/ul/li[1]').click()
 
+        browser.execute_script("window.scrollTo(0, 100000)")#適当にスクロール
+        sleep(3)
 
-        browser.execute_script("window.scrollTo(0, 60000)")#適当にスクロール
-
-        sleep(2)
         #次へすすむ
         browser.find_element(By.CSS_SELECTOR, 'body > div.str_main > div.str_main_inner > form > ul > li._button').click()
         ##結果画面
