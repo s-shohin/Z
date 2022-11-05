@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import Z_func as Z
@@ -17,7 +17,7 @@ import random
 import subprocess
 
 
-# In[ ]:
+# In[2]:
 
 
 FILE_NAME=input('ファイル名を入力（拡張子.xlsmは除く）')
@@ -77,7 +77,7 @@ while len(calc_row) > 0:
         #結果をdfに書き込む
         df_temp=pd.DataFrame.from_dict(data, orient='index').T
         df.loc[i-2,:] = df_temp.iloc[0,:]
-        if df_temp['車有P'] == 'E':
+        if df_temp['車有P'] == 0:
             error_count=error_count+1
     #####行単位のループ終了######################################
 

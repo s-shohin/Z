@@ -384,9 +384,9 @@ def Z_func(data):
         data['早割']=int(re.sub(r"\D", "", early_discount_amt))
         browser.quit()
 
-    #不測のエラーが起きた場合は、結果にEを入力する
+    #不測のエラーが起きた場合は、結果に0を入力する
     except :
-        data['車有P']='E'
+        data['車有P']=0
         data['車無P']=traceback.format_exc()
         #browser.quit()
 
