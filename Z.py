@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 import Z_func as Z
@@ -17,7 +17,7 @@ import random
 import subprocess
 
 
-# In[2]:
+# In[ ]:
 
 
 FILE_NAME=input('ファイル名を入力（拡張子.xlsmは除く）')
@@ -54,7 +54,7 @@ while len(calc_row) > 0:
     #打鍵する行を特定
     calc_row=list()
     #数値のはいっていない行のうち、バッチサイズの行だけExcel上の行番号を取得（dfのindex+2）する。
-    BAT_SIZE=BASE_BAT_SIZE + random.randint(0, BASE_BAT_SIZE) #並列処理時にデータファイルアクセスのタイミングをずらすために乱数を加算
+    BAT_SIZE=int(BASE_BAT_SIZE) + random.randint(0, int(BASE_BAT_SIZE)) #並列処理時にデータファイルアクセスのタイミングをずらすために乱数を加算
     calc_row=list(df[df['車有P'].isna()].index[0:BAT_SIZE]+2)
     print(calc_row)
 
