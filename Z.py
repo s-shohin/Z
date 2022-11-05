@@ -22,7 +22,7 @@ import subprocess
 
 FILE_NAME=input('ファイル名を入力（拡張子.xlsmは除く）')
 SHEET_NAME='Z打鍵'
-BASE_BAT_SIZE=5 #バッチサイズ。一度の打鍵件数
+BASE_BAT_SIZE=int(input('バッチサイズ（自然数）')) #バッチサイズ。一度の打鍵件数
 
 #githubから最新版をダウンロードする。強制的に上書き
 try:#ダウンロードする際、競合してUnlink *** try?y/n みたいなメッセージで止まるので、いったん削除して回避。
@@ -54,8 +54,11 @@ while len(calc_row) > 0:
         calc_row=list()
         #数値のはいっていない行のうち、バッチサイズの行だけExcel上の行番号を取得（dfのindex+2）する。
         BAT_SIZE=BASE_BAT_SIZE + random.randint(0, BASE_BAT_SIZE) #並列処理時にデータファイルアクセスのタイミングをずらすために乱数を加算
-        calc_row=list(df[(df['車有P'] == 'E') | (df['車有P'].isna())].index[0:BAT_SIZE]+2)
+        calc_row=list(df[df['車有P'].isna()].index[0:BAT_SIZE]+2)
         print(calc_row)
+
+        #エラー回数カウントを初期化
+        error_count = 0
 
         #打鍵を始める行に打鍵中と入力
         for j in calc_row:
@@ -76,7 +79,13 @@ while len(calc_row) > 0:
             #結果をdfに書き込む
             df_temp=pd.DataFrame.from_dict(data, orient='index').T
             df.loc[i-2,:] = df_temp.iloc[0,:]
+            if data['車有P'] == 'E':
+                error_count = error_count + 1
         #####行単位のループ終了######################################
+
+        if error_count == BAT_SIZE:
+            print('1時間停止中')
+            sleep(3600)#すべてE、エラーだったら、たぶんHPメンテ中と判断して、1時間停止
 
         ########並列で実行するため、あらためて現時点の最新版のファイルを読み出して結果を追加
         try:#ダウンロードする際、競合してUnlink *** try?y/n みたいなメッセージで止まるので、いったん削除して回避。
@@ -97,9 +106,6 @@ while len(calc_row) > 0:
             ws.cell(row=i, column=78).value = df.loc[i-2,'車両AMTエラー']
             ws.cell(row=i, column=79).value = df.loc[i-2,'新車保険金額エラー']
 
-        if sum((df['車有P'] == 'E')*1) == BAT_SIZE:
-            print('1時間停止中')
-            sleep(3600)#すべてE、エラーだったら、たぶんHPメンテ中と判断して、1時間停止
 
         #いったん保存
         wb.save(FILE_NAME+'.xlsm')

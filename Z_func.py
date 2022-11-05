@@ -259,10 +259,13 @@ def Z_func(data):
         #何故か車両AMTがデフォルト値に戻ったりするので、念のため、もう一度選択
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
 
-        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text == (data['車両AMT2']) and browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text == (data['車両免責2']):
+        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text != data['車両AMT2']:
             pass
         else:
-            data['車両AMTエラー']='車両保険エラー'
+            data['車両AMTエラー']='車両AMTエラー'
+
+        if browser.find_elements(browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text != (data['車両免責2']):
+            data['車両AMTエラー']='車両免責エラー'
 
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
