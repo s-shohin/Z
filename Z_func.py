@@ -63,11 +63,11 @@ def Z_func(data):
 
         #始期日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateEraYearField')).select_by_visible_text(data['西暦2']) 
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateMonthField')).select_by_visible_text(str(data['月2']))
-        sleep(1)
+        sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateDayField')).select_by_visible_text(str(data['日2'])) 
-        sleep(1)
+        sleep(2)
 
         if 'S' in data['NF2']:
             pass
@@ -252,25 +252,17 @@ def Z_func(data):
 
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
         sleep(3)
-
-
         #7等級未満だと選択肢が現れないため
         if len(browser.find_elements(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1'))>0:
             Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSpecialClauseOption_plan1')).select_by_visible_text(data['車両免責2']) 
         sleep(1)
-        #何故か車両AMTが勝手にデフォルト値に戻ったりするので、念のため、もう一度選択
+        #何故か車両AMTがデフォルト値に戻ったりするので、念のため、もう一度選択
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
 
-        #車両AMTが正しく選択されているか確認
-        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text == (data['車両AMT2']):
+        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text == (data['車両AMT2']) and browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text == (data['車両免責2']):
             pass
         else:
-            data['車両AMTエラー']='車両AMTエラー'
-        #車両免責ゼロが一致しているか確認（6S以下だと付帯不可）
-        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text == (data['車両免責2']):
-            pass
-        else:
-            data['車両AMTエラー']='車両免責エラー'
+            data['車両AMTエラー']='車両保険エラー'
 
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
@@ -315,7 +307,7 @@ def Z_func(data):
         except:
             pass
 
-        sleep(2)
+        sleep(4)
         result0_discount = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:quotePremium1_top').text
         result0_discount_amt = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:discountArea1_top').text
 
@@ -364,7 +356,8 @@ def Z_func(data):
         except:
             pass
 
-        sleep(2)
+        sleep(4)
+
 
         #車無保険料の取得
         result1_discount = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:quotePremium2_top').text
@@ -382,11 +375,11 @@ def Z_func(data):
         data['イ割車有']=int(re.sub(r"\D", "", result0_discount_amt))
         data['イ割車無']=int(re.sub(r"\D", "", result1_discount_amt))
         data['早割']=int(re.sub(r"\D", "", early_discount_amt))
-        browser.quit()
+        #browser.quit()
 
-    #不測のエラーが起きた場合は、結果に0を入力する
+    #不測のエラーが起きた場合は、結果にEを入力する
     except :
-        data['車有P']=0
+        data['車有P']='E'
         data['車無P']=traceback.format_exc()
         #browser.quit()
 
