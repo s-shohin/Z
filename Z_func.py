@@ -264,7 +264,7 @@ def Z_func(data):
         else:
             data['車両AMTエラー']='車両AMTエラー'
 
-        if browser.find_elements(browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text != (data['車両免責2']):
+        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text != data['車両免責2']:
             data['車両AMTエラー']='車両免責エラー'
 
         #特約
