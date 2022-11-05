@@ -260,8 +260,6 @@ def Z_func(data):
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
 
         if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text != data['車両AMT2']:
-            pass
-        else:
             data['車両AMTエラー']='車両AMTエラー'
 
         if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text != data['車両免責2']:
