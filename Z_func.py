@@ -51,7 +51,7 @@ def Z_func(data):
                 browser.find_element(By.CSS_SELECTOR, '#part_newBusinessBtnBlock > p > a > span').click()
         else:
             new = ''
-            browser.find_element(By.CSS_SELECTOR, '#page1_question1_answer1 > div > span.txt > p.btntxt > img').click()
+            browser.find_element(By.CSS_SELECTOR, '#page1_question1_answer1 > div > span').click()
 
         if 'S' in data['NF2']:
             pass
