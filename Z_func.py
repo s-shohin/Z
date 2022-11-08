@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[7]:
+# In[1]:
 
 
 from selenium import webdriver
@@ -16,7 +16,7 @@ import re
 import traceback
 
 
-# In[8]:
+# In[2]:
 
 
 def Z_func(data):
@@ -384,14 +384,13 @@ def Z_func(data):
     #不測のエラーが起きた場合は、結果にEを入力する
     except :
         data['車有P']='E'
-        user_name = get_ipython().getoutput('git config user.name')
-        data['車無P']=str(user_name) + traceback.format_exc()
+        data['車無P']=traceback.format_exc()
         #browser.quit()
 
     return data  
 
 
-# In[9]:
+# In[3]:
 
 
 if __name__ == "__main__":
