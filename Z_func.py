@@ -28,8 +28,8 @@ def Z_func(data):
         options = webdriver.ChromeOptions()
         #options.add_argument('--headless') #ブラウザ表示なし
         options.add_argument('--incognito') #シークレットモード 
-        options.add_argument('--process-per-tab')#タブごとにプロセスを生成する。（デフォルトはサイトごと？）
-       
+        #options.add_argument('--process-per-tab')#タブごとにプロセスを生成する。（デフォルトはサイトごと？）
+    
         browser = webdriver.Chrome(options=options)
 
         #見積もりページを開く
@@ -376,9 +376,9 @@ def Z_func(data):
         #カンマを除く
         data['車有P']=int(re.sub(r"\D", "", result0_discount))
         data['車無P']=int(re.sub(r"\D", "", result1_discount))
-        data['イ割車有']=int(re.sub(r"\D", "", result0_discount_amt))
-        data['イ割車無']=int(re.sub(r"\D", "", result1_discount_amt))
-        data['早割']=int(re.sub(r"\D", "", early_discount_amt))
+        data['イ割車有']=-int(re.sub(r"\D", "", result0_discount_amt))
+        data['イ割車無']=-int(re.sub(r"\D", "", result1_discount_amt))
+        data['早割']=-int(re.sub(r"\D", "", early_discount_amt))
         #browser.quit()
 
     #不測のエラーが起きた場合は、結果にEを入力する
