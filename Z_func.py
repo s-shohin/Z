@@ -252,7 +252,7 @@ def Z_func(data):
 
         #車両保険
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageOption_plan1')).select_by_visible_text(data['車両保険種類2']) 
-
+        sleep(1)
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
         sleep(3)
         #7等級未満だと選択肢が現れないため
