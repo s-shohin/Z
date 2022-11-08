@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[ ]:
 
 
 from selenium import webdriver
@@ -16,7 +16,7 @@ import re
 import traceback
 
 
-# In[2]:
+# In[ ]:
 
 
 def Z_func(data):
@@ -28,7 +28,7 @@ def Z_func(data):
         options = webdriver.ChromeOptions()
         #options.add_argument('--headless') #ブラウザ表示なし
         options.add_argument('--incognito') #シークレットモード 
-        #options.add_argument('--process-per-tab')#タブごとにプロセスを生成する。（デフォルトはサイトごと？）
+        options.add_argument('--process-per-tab')#タブごとにプロセスを生成する。（デフォルトはサイトごと？）
     
         browser = webdriver.Chrome(options=options)
 
@@ -390,7 +390,7 @@ def Z_func(data):
     return data  
 
 
-# In[3]:
+# In[ ]:
 
 
 if __name__ == "__main__":
