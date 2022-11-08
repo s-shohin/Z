@@ -28,11 +28,14 @@ def Z_func(data):
         options = webdriver.ChromeOptions()
         #options.add_argument('--headless') #ブラウザ表示なし
         options.add_argument('--incognito') #シークレットモード 
+        options.add_argument('--process-per-tab')#タブごとにプロセスを生成する。（デフォルトはサイトごと？）
+       
         browser = webdriver.Chrome(options=options)
 
         #見積もりページを開く
         url= "https://www.zurich.co.jp/auto/common/ncdAssessmentPage.html"
         browser.get(url)
+        sleep(3)
 
         if 'S' in data['NF2']:
             new = 'New'
@@ -381,7 +384,8 @@ def Z_func(data):
     #不測のエラーが起きた場合は、結果にEを入力する
     except :
         data['車有P']='E'
-        data['車無P']=traceback.format_exc()
+        user_name = get_ipython().getoutput('git config user.name')
+        data['車無P']=str(user_name) + traceback.format_exc()
         #browser.quit()
 
     return data  
