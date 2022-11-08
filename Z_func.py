@@ -119,12 +119,16 @@ def Z_func(data):
         sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:dummyCarTypeListField0')).select_by_index(1)
         sleep(1)
+        if data['ASV2'] == 'あり':
+            browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:aebCodeKnowField > tbody > tr > td.firstChild > label').click()
+        else:
+            browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:aebCodeKnowField > tbody > tr > td.nthChild2 > label').click()
+        sleep(1)
 
         #記名被保険者は契約者の配偶者男性
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverRelationField > tbody > tr > td.nthChild3.nthChild3n > label').click()
 
         sleep(3)
-
         #生年月日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBEraYearField')).select_by_visible_text(data['生年2']) 
         sleep(3)
