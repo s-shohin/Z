@@ -28,14 +28,11 @@ def Z_func(data):
         options = webdriver.ChromeOptions()
         #options.add_argument('--headless') #ブラウザ表示なし
         options.add_argument('--incognito') #シークレットモード 
-        options.add_argument('--process-per-tab')#タブごとにプロセスを生成する。（デフォルトはサイトごと？）
-    
         browser = webdriver.Chrome(options=options)
 
         #見積もりページを開く
         url= "https://www.zurich.co.jp/auto/common/ncdAssessmentPage.html"
         browser.get(url)
-        sleep(3)
 
         if 'S' in data['NF2']:
             new = 'New'
@@ -56,6 +53,7 @@ def Z_func(data):
             new = ''
             browser.find_element(By.CSS_SELECTOR, '#page1_question1_answer1 > div > span').click()
 
+
         if 'S' in data['NF2']:
             pass
         else:
@@ -66,11 +64,11 @@ def Z_func(data):
 
         #始期日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateEraYearField')).select_by_visible_text(data['西暦2']) 
-        sleep(2)
+        sleep(1)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateMonthField')).select_by_visible_text(str(data['月2']))
-        sleep(2)
+        sleep(1)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:commencementDateDayField')).select_by_visible_text(str(data['日2'])) 
-        sleep(2)
+        sleep(1)
 
         if 'S' in data['NF2']:
             pass
@@ -112,23 +110,34 @@ def Z_func(data):
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carRegistrationDateMonthField')).select_by_visible_text(str(data['初度月2']))
         sleep(1)
 
+        browser.execute_script("window.scrollTo(0, 100000)")#適当にスクロール
+
         #型式
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:carTypeField_input').send_keys(data['型式2'])
-        sleep(1)
+        sleep(2)
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:autoCompleteButton').click()
         sleep(2)
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:dummyCarTypeListField0')).select_by_index(1)
         sleep(1)
-        if data['ASV2'] == 'あり':
-            browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:aebCodeKnowField > tbody > tr > td.firstChild > label').click()
-        else:
-            browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:aebCodeKnowField > tbody > tr > td.nthChild2 > label').click()
+
+
+        try:
+            if data['ASV2'] == 'あり':
+                browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:aebCodeKnowField > tbody > tr > td.firstChild > label').click()
+            else:
+                browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:aebCodeKnowField > tbody > tr > td.nthChild2 > label').click()
+        except:
+            pass
+
         sleep(1)
+
+        browser.execute_script("window.scrollTo(0, 200000)")#適当にスクロール
 
         #記名被保険者は契約者の配偶者男性
         browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverRelationField > tbody > tr > td.nthChild3.nthChild3n > label').click()
 
         sleep(3)
+
         #生年月日
         Select(browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:insuredDOBEraYearField')).select_by_visible_text(data['生年2']) 
         sleep(3)
@@ -266,11 +275,11 @@ def Z_func(data):
         #何故か車両AMTがデフォルト値に戻ったりするので、念のため、もう一度選択
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:ownDamageSumInsured_plan1')).select_by_visible_text(data['車両AMT2']) 
 
-        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text != data['車両AMT2']:
-            data['車両AMTエラー']='車両AMTエラー'
+        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[7].text == (data['車両AMT2']) and browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text == (data['車両免責2']):
+            pass
+        else:
+            data['車両AMTエラー']='車両保険エラー'
 
-        if browser.find_elements(By.CLASS_NAME, 'customSelectInner')[8].text != data['車両免責2']:
-            data['車両AMTエラー']='車両免責エラー'
 
         #特約
         Select(browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:personalEffectiveOption_plan1')).select_by_visible_text(data['積載動産2']) 
@@ -315,7 +324,7 @@ def Z_func(data):
         except:
             pass
 
-        sleep(4)
+        sleep(2)
         result0_discount = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:quotePremium1_top').text
         result0_discount_amt = browser.find_element(By.CSS_SELECTOR, '#calculatePremiumForm\:discountArea1_top').text
 
@@ -364,7 +373,7 @@ def Z_func(data):
         except:
             pass
 
-        sleep(4)
+        sleep(2)
 
 
         #車無保険料の取得
@@ -380,10 +389,9 @@ def Z_func(data):
         #カンマを除く
         data['車有P']=int(re.sub(r"\D", "", result0_discount))
         data['車無P']=int(re.sub(r"\D", "", result1_discount))
-        data['イ割車有']=-int(re.sub(r"\D", "", result0_discount_amt))
-        data['イ割車無']=-int(re.sub(r"\D", "", result1_discount_amt))
-        data['早割']=-int(re.sub(r"\D", "", early_discount_amt))
-        #browser.quit()
+        data['イ割車有']=int(re.sub(r"\D", "", result0_discount_amt))
+        data['イ割車無']=int(re.sub(r"\D", "", result1_discount_amt))
+        data['早割']=int(re.sub(r"\D", "", early_discount_amt))
 
     #不測のエラーが起きた場合は、結果にEを入力する
     except :
