@@ -103,7 +103,7 @@ def Z_func(data):
             sleep(1)
 
             #年齢
-            Select(browser.find_element(By.CSS_SELECTOR,'#riskFactorForm\:ageLimitedDiscountField')).select_by_visible_text(data['年齢限定修正2'])
+            Select(browser.find_element(By.CSS_SELECTOR,'#riskFactorForm\:ageLimitedDiscountField')).select_by_visible_text(data['年齢限定2'])
             #sleep(1)
 
         #初度登録
