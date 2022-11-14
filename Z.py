@@ -24,14 +24,6 @@ FILE_NAME=input('ファイル名を入力（拡張子.xlsmは除く）=')
 SHEET_NAME='Z打鍵'
 BASE_BAT_SIZE=int(input('バッチあたりの打鍵数(1=<) = ')) #バッチサイズ。一度の打鍵件数
 
-#githubから最新版をダウンロードする。強制的に上書き
-try:#ダウンロードする際、競合してUnlink *** try?y/n みたいなメッセージで止まるので、いったん削除して回避。
-    os.remove(FILE_NAME+'.xlsm')
-except OSError:
-    pass
-subprocess.run(['git', 'fetch', 'origin', 'main'])
-subprocess.run(['git', 'reset', '--hard', 'origin/main'])
-
 #読み込み
 wb=xl.load_workbook(FILE_NAME+'.xlsm',keep_vba=True)    
 df=pd.read_excel(FILE_NAME+'.xlsm',sheet_name=SHEET_NAME)
@@ -65,11 +57,6 @@ while len(calc_row) > 0:
         df.iloc[j-2,df.columns.get_loc('車有P')]='打鍵中'
     wb.save(FILE_NAME+'.xlsm')#いったん保存
 
-    #打鍵中と入力したファイルをアップロード
-    subprocess.run(['git', 'add', FILE_NAME+'.xlsm'])
-    subprocess.run(['git', 'commit', '-m','hoge'])
-    subprocess.run(['git','push','-f','origin','main'])#競合しても上書き　-fオプションを付ける
-
     #####打鍵、行単位のループ#####################################  
     for i in tqdm(calc_row):
         data=df.loc[i-2,:].to_dict()
@@ -87,12 +74,7 @@ while len(calc_row) > 0:
         sleep(3600)#すべてE、エラーだったら、たぶんHPメンテ中と判断して、1時間停止
 
     ########並列で実行するため、あらためて現時点の最新版のファイルを読み出して結果を追加
-    try:#ダウンロードする際、競合してUnlink *** try?y/n みたいなメッセージで止まるので、いったん削除して回避。
-        os.remove(FILE_NAME+'.xlsm')
-    except OSError:
-        pass
-    subprocess.run(['git', 'fetch', 'origin', 'main'])
-    subprocess.run(['git', 'reset', '--hard', 'origin/main'])
+
     wb=xl.load_workbook(FILE_NAME+'.xlsm',keep_vba=True)
 
     ws=wb[SHEET_NAME]
