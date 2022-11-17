@@ -134,8 +134,8 @@ def Z_func(data):
 
         browser.execute_script("window.scrollTo(0, 200000)")#適当にスクロール
 
-        #記名被保険者は契約者の配偶者男性
-        browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverRelationField > tbody > tr > td.nthChild3.nthChild3n > label').click()
+        #記名被保険者は契約者の配偶者男性 →別居の配偶者男性に変更。所在地の違いでエラーになるため
+        browser.find_element(By.CSS_SELECTOR, '#riskFactor'+ new + 'Form\:mainDriverRelationField > tbody > tr > td:nth-child(7) > label').click()
 
         sleep(3)
 
