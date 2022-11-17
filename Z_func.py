@@ -32,6 +32,7 @@ def Z_func(data):
 
         #見積もりページを開く
         url= "https://www.zurich.co.jp/auto/common/ncdAssessmentPage.html"
+        browser.maximize_window()
         browser.get(url)
 
         if 'S' in data['NF2']:
@@ -398,6 +399,8 @@ def Z_func(data):
         data['車有P']='E'
         data['車無P']=traceback.format_exc()
         #browser.quit()
+
+    print(data['車有P'])
 
     return data  
 
